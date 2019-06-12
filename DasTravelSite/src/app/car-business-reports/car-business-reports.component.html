@@ -1,0 +1,124 @@
+<mat-toolbar color="primary">
+    <a mat-button (click)="setToIncomeForm()" *ngIf="userType==='rentalServiceAdmin'"> Income reports </a>
+    <a mat-button (click)="setToOccupancyForm()" *ngIf="userType==='rentalServiceAdmin'"> Occupancy reports </a>
+    <a mat-button (click)="setToRatingReport()" *ngIf="userType==='rentalServiceAdmin'"> Ratings report </a>
+    <span class="flex-spacer"></span>
+    <!--<a mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg">Login</span></a>-->
+</mat-toolbar>
+
+<div *ngIf="isIncomeForm&&userType==='rentalServiceAdmin'" >
+  <div fxFlex fxFlexOffset="20px" class="form-size">
+    <form novalidate [formGroup]="incomeForm" #incomeform="ngForm" (ngSubmit)="onIncomeSubmit()">
+        <p>
+            <mat-form-field class="form-size">
+              <mat-select formControlName="type" placeholder="Type of report">
+                <mat-option value="weekly">
+                  Weekly
+                </mat-option>
+                <mat-option value="monthly">
+                  Monthly
+                </mat-option>
+                <mat-option value="yearly">
+                  Yearly
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="incomeFormErrors.type">
+                  {{ incomeFormErrors.type }}
+              </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="half-width">
+            <input matInput formControlName="start" [matDatepicker]="myDatepicker" placeholder="Start time">
+            <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+            <mat-error *ngIf="incomeFormErrors.start">
+              {{ incomeFormErrors.start }}
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field class="half-width">
+            <input matInput formControlName="end" [matDatepicker]="myDatepicker2" placeholder="Return time">
+            <mat-datepicker-toggle [for]="myDatepicker2"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker2></mat-datepicker>
+            <mat-error *ngIf="incomeFormErrors.end">
+              {{ incomeFormErrors.end }}
+            </mat-error>
+          </mat-form-field>
+        </p>
+        <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="incomeForm.invalid">
+            Submit
+        </button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isOccupancyForm&&userType==='rentalServiceAdmin'" >
+  <div fxFlex fxFlexOffset="20px" class="form-size">
+    <form novalidate [formGroup]="occupancyForm" #occupancyform="ngForm" (ngSubmit)="onOccupancySubmit()">
+        <p>
+          <mat-form-field class="half-width">
+            <input matInput formControlName="start" [matDatepicker]="myDatepicker3" placeholder="Start time">
+            <mat-datepicker-toggle [for]="myDatepicker3"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker3></mat-datepicker>
+            <mat-error *ngIf="occupancyFormErrors.start">
+                {{ occupancyFormErrors.start }}
+            </mat-error>
+          </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="half-width">
+              <input matInput formControlName="end" [matDatepicker]="myDatepicker4" placeholder="Return time">
+              <mat-datepicker-toggle [for]="myDatepicker4"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker4></mat-datepicker>
+              <mat-error *ngIf="occupancyFormErrors.end">
+                {{ occupancyFormErrors.end }}
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="occupancyForm.invalid">
+              Submit
+          </button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isIncomeChart">
+  <div fxFlex="50">
+    <canvas baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [legend]="barChartLegend"
+      [chartType]="barChartType"></canvas>
+  </div>
+</div>
+
+<div fxLayout="column" *ngIf="isRatingReport">
+    <div fxFlex fxFlexOffset="20px" class="form-size">
+      Rental service <b>{{rentalServiceForRating.name}}</b> <br>
+      Rating: {{rentalServiceForRating.rating}}/5 <br>
+      Total ratings from users: {{rentalServiceForRating.ratingCount}} <br>
+    </div>
+    <div fxFlex fxFlexOffset="20px" class="form-size">
+      <table mat-table [dataSource]="carsForRating">
+        <ng-container matColumnDef="registration">
+            <th mat-header-cell *matHeaderCellDef>Registration</th>
+            <td mat-cell *matCellDef="let car">{{car.registration}}</td>
+          </ng-container>
+          <ng-container matColumnDef="rating">
+            <th mat-header-cell *matHeaderCellDef>Rating</th>
+            <td mat-cell *matCellDef="let car">{{car.rating}}</td>
+          </ng-container>
+          <ng-container matColumnDef="ratingCount">
+            <th mat-header-cell *matHeaderCellDef>Number of rates</th>
+            <td mat-cell *matCellDef="let car">{{car.ratingCount}}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplayCar"></tr>
+          <tr mat-row *matRowDef="let car; columns: columnsToDisplayCar">
+          </tr>
+      </table>
+    </div>
+</div>
+

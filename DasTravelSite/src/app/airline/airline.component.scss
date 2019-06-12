@@ -1,0 +1,26 @@
+.column-title {
+    align-self: center;
+}
+
+.flightTableCell {
+    padding: 15px;
+}
+
+.flightTable tr.active td {
+    background-color:#123456 !important;
+    color: white;
+}
+
+.seatTableCell {
+    padding: 15px;
+}
+
+.seatTable tr.active td {
+    background-color:#123456 !important;
+    color: white;
+}
+
+.seatTableD tr.active td {
+    background-color:#123456 !important;
+    color: white;
+}

@@ -1,0 +1,46 @@
+{
+  "name": "roomReservation",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date",
+      "required": true
+    },
+    "price": {
+      "type": "number",
+      "required": true
+    },
+    "roomId": {
+      "type": "string",
+      "required": true
+    },
+    "hotelId": {
+      "type": "string",
+      "required": true
+    },
+    "myuserId": {
+      "type": "string",
+      "required": false
+    },
+    "hotelDiscountId": {
+      "type": "string",
+      "required": false
+    },
+    "rated": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

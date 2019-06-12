@@ -1,0 +1,68 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "MongoDB": {
+    "host": "localhost",
+    "port": 27017,
+    "url": "",
+    "database": "travels",
+    "password": "",
+    "name": "MongoDB",
+    "user": "",
+    "connector": "mongodb"
+  },
+  "myemailsource": {
+    "name": "myemailsource",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "SMTP",
+        "host": "smtp.gmail.com",
+        "secure": true,
+        "port": 465,
+        "auth": {
+          "user": "DasTravelSite@gmail.com",
+          "pass": "password123#"
+        }
+      }
+    ]
+  },
+  "postgres": {
+    "host": "localhost",
+    "port": 5432,
+    "url": "",
+    "database": "reservations",
+    "password": "sys",
+    "name": "postgres",
+    "user": "myuser",
+    "connector": "postgresql"
+  },
+  "geoRest": {
+    "name": "geoRest",
+    "connector": "rest",
+    "operations": [
+      {
+        "template": {
+          "method": "GET",
+          "url": "https://maps.googleapis.com/maps/api/geocode/json?address={format=json}&key=AIzaSyCS7Tj-OtjMMBnoW_d28O4VoYgt1-3MHGM",
+          "headers": {
+            "accepts": "application/json",
+            "content-type": "application/json"
+          },
+          "query": {
+            "address": "{address}",
+            "sensor": "{sensor=false}"
+          },
+          "responsePath": "$.results[0].geometry.location"
+        },
+        "functions": {
+          "geocode": [
+            "address"
+          ]
+        }
+      }
+    ]
+  }
+}

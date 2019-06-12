@@ -1,0 +1,75 @@
+<div class="container jumbotron"
+    fxLayout="row"
+    fxLayout.sm="column" 
+    fxLayout.xs="column" 
+    fxLayoutAlign.xs="start center"
+    fxLayoutAlign.sm="start center" 
+    fxLayoutAlign.gt-sm="center center" 
+    fxLayoutGap="10px">
+
+  <div fxFlex fxFlex="50%">
+    <h1>Das Travel Site</h1>
+  </div>
+
+  <div fxFlex></div>
+</div>
+<mat-toolbar color="primary">
+  <div *ngIf="!userType">
+    <a mat-button routerLink='/home' routerLinkActive='active'> Home</a>
+    <a mat-button routerLink='/flights'> Flights </a>
+    <a mat-button routerLink='/hotels'> Hotels </a>
+    <a mat-button routerLink='/rentalServices'> Rental Services </a>
+    <a mat-button routerLink='/cars'> Cars </a>
+    <span class="flex-spacer"></span>
+
+
+  </div>
+  <div *ngIf="userType==='registeredUser'">
+    <a mat-button routerLink='/home' routerLinkActive='active'> Home</a>
+    <a mat-button routerLink='/flights'> Flights </a>
+    <a mat-button routerLink='/hotels'> Hotels </a>
+    <a mat-button routerLink='/rentalServices'> Rental Services </a>
+    <a mat-button routerLink='/cars'> Cars </a>
+    <a mat-button routerLink='/listCarDiscounts'> Car special offers </a>
+    <a mat-button routerLink="/roomReservations"> Room Reservations </a>
+    <a mat-button routerLink="/carReservations"> Car Reservations </a>
+    <a mat-button routerLink="/reservationFlow">Reservation flow</a>
+  </div>
+  <div *ngIf="userType==='airportAdmin'">
+    <a mat-button routerLink='/home' routerLinkActive='active'> Home</a>
+    <a mat-button routerLink='/flights'> Flights </a>
+    <a mat-button routerLink='/airline'> Airline </a>
+  </div>
+  <div *ngIf="userType==='hotelAdmin'">
+    <a mat-button routerLink='/home' routerLinkActive='active'> Home</a>
+    <a mat-button routerLink='/hotel'> Hotel </a>
+    <a mat-button routerLink='/rooms'> Rooms </a>
+    <a mat-button routerLink='/roomBusinessReports'> Business reports </a>
+  </div>
+  <div *ngIf="userType==='rentalServiceAdmin'">
+    <a mat-button routerLink='/home' routerLinkActive='active'> Home</a>
+    <a mat-button routerLink='/rentalServices'> Rental Services </a>
+    <a mat-button routerLink='/carPrices'>Car prices</a>
+    <a mat-button routerLink='/branches'> Branches </a>
+    <a mat-button routerLink='/cars'> Cars </a>
+    <a mat-button routerLink ='/carDiscounts' > Discounts </a>
+    <a mat-button routerLink ='/carBusinessReports'> Business reports </a>
+  </div>
+  <div *ngIf="userType==='admin'">
+    <a mat-button routerLink='/home' routerLinkActive='active'> Home</a>
+    <a mat-button routerLink="/addAirline" > Airports </a>
+    <a mat-button routerLink='/hotels'> Hotels </a>
+    <a mat-button routerLink='/rentalServices'> Rental Services </a>
+    <a mat-button routerLink="/admins"> Admins </a>
+    <a mat-button routerLink='/locations'> Locations </a>
+  </div>
+
+  <span class="flex-spacer"></span>
+  <span *ngIf="userType==='registeredUser'">Bonus points: {{bonusPoints}}</span>
+  <a mat-button routerLink='/user' *ngIf="userType">User</a>
+  <a mat-button (click)="logout()" *ngIf="userType">Logout</a>
+  <a mat-button (click)="openLoginForm()" *ngIf="!userType">Login</a>
+  <a mat-button (click)="openRegisterForm()" *ngIf="!userType">Register</a>
+    <!--<a mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg">Login</span></a>-->
+</mat-toolbar>
+

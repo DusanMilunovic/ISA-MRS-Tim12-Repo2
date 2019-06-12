@@ -1,0 +1,20 @@
+<div fxLayout="column"
+  fxLayoutGap="10px">
+    <div fxFlex>
+      <h3>Rooms</h3>
+      <hr>
+  </div>
+  <div fxFlex>
+    <mat-grid-list cols="3" rowHeight="200px">
+      <mat-grid-tile *ngFor="let room of rooms">
+        <mat-card [routerLink]="['/room', room.id]" class="pointer">
+          <mat-card-content>
+            Room number: {{room.number}} <br>
+            Number of beds: {{room.beds}} <br>
+            Description: {{room.description}}
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>         
+  </div>
+</div>

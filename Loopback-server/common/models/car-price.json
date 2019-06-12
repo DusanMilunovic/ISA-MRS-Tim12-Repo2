@@ -1,0 +1,66 @@
+{
+  "name": "CarPrice",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "indexes": {
+    "dateRentalIndex": {
+      "keys": {
+        "start": 1,
+        "rentalServiceId": -1
+      },
+      "options": {
+        "unique": true
+      }
+    }
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "start": {
+      "type": "date",
+      "required": false
+    },
+    "catAPrice": {
+      "type": "number",
+      "required": true
+    },
+    "catBPrice": {
+      "type": "number",
+      "required": true
+    },
+    "catCPrice": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "rentalService": {
+      "type": "belongsTo",
+      "model": "rentalService",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "rentalServiceAdmin",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

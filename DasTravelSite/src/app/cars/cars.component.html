@@ -1,0 +1,193 @@
+<mat-toolbar color="primary">
+    <a mat-button (click)="setToAdd()" *ngIf="userType==='rentalServiceAdmin'"> Add</a>
+    <a mat-button (click)="setToRemove()" *ngIf="userType==='rentalServiceAdmin'"> Remove </a>
+    <a mat-button (click)="setToChange()" *ngIf="userType==='rentalServiceAdmin'"> Change </a>
+    <a mat-button (click)="setToList()" *ngIf="userType==='rentalServiceAdmin'"> List service's cars </a>
+    <a mat-button (click)="setToSearch()"> Search </a>
+    <span class="flex-spacer"></span>
+    <!--<a mat-button (click)="openLoginForm()"><span class="fa fa-sign-in fa-lg">Login</span></a>-->
+</mat-toolbar>
+
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let location of filteredLocationsStrings" [value]="location">{{location}}</mat-option>
+</mat-autocomplete>
+
+<div *ngIf="isAdd&&userType==='rentalServiceAdmin'" >
+    <div fxFlex fxFlexOffset="20px" class="form-size">
+      <form novalidate [formGroup]="addForm" #addform="ngForm" (ngSubmit)="onAddSubmit()">
+          <p>
+            <mat-form-field class="form-size">
+              <input matInput formControlName="registration" placeholder="Registration" type="text">
+              <mat-error *ngIf="addFormErrors.registration">
+                {{ addFormErrors.registration }}
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="form-size">
+              <mat-select formControlName="category" placeholder="Category">
+                <mat-option value="A">
+                  A
+                </mat-option>
+                <mat-option value="B">
+                  B
+                </mat-option>
+                <mat-option value="C">
+                  C
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addFormErrors.category">
+                  {{ addFormErrors.category }}
+              </mat-error>
+            </mat-form-field>
+        </p>
+          <p>
+            <mat-form-field class="form-size">
+              <input matInput formControlName="make" placeholder="Make" type="text">
+              <mat-error *ngIf="addFormErrors.make">
+                {{ addFormErrors.make }}
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="half-width">
+              <input matInput formControlName="seats" placeholder="Number of seats" pattern="[0-9]*" type="text">
+              <mat-error *ngIf="addFormErrors.seats">
+                {{ addFormErrors.seats }}
+              </mat-error>
+            </mat-form-field>
+          </p>
+          <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="addForm.invalid">
+              Submit
+          </button>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="isRemove&&userType==='rentalServiceAdmin'">
+  <div fxFlex fxFlexOffset="20px" class="form-size">
+    <form novalidate [formGroup]="removeForm" #removeform="ngForm" (ngSubmit)="onRemoveSubmit()">
+      <p>
+        <mat-form-field class="form-size">
+          <input matInput formControlName="registration" placeholder="Registration" type="text">
+          <mat-error *ngIf="removeFormErrors.registration">
+            {{ removeFormErrors.registration }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="removeForm.invalid">
+          Submit
+      </button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isChange&&userType==='rentalServiceAdmin'">
+  <div fxFlex fxFlexOffset="20px" class="form-size">
+    <form novalidate [formGroup]="changeForm" #changeform="ngForm" (ngSubmit)="onChangeSubmit()">
+      <p>
+        <mat-form-field class="form-size">
+          <input matInput formControlName="registration" placeholder="Registration" type="text">
+          <mat-error *ngIf="changeFormErrors.registration">
+            {{ changeFormErrors.registration }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <button type="button" mat-button class="background-primary text-floral-white" (click)="changeGrabCar()">Get</button>
+      <p>
+        <mat-form-field class="form-size">
+          <input matInput formControlName="make" placeholder="Make" type="text">
+          <mat-error *ngIf="changeFormErrors.make">
+            {{ changeFormErrors.make }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="seats" placeholder="Number of seats" pattern="[0-9]*" type="text">
+          <mat-error *ngIf="changeFormErrors.seats">
+            {{ changeFormErrors.seats }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="changeForm.invalid">
+          Submit
+      </button>
+    </form>
+  </div>
+</div>
+
+<div *ngIf="isSearch">
+  <div fxFlex fxFlexOffset="20px" class="form-size">
+    <form novalidate [formGroup]="searchForm" #searchform="ngForm" (ngSubmit)="onSearchSubmit()">
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="startDate" [matDatepicker]="myDatepicker" placeholder="Start time">
+          <mat-datepicker-toggle [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+          <mat-error *ngIf="searchFormErrors.startDate">
+            {{ searchFormErrors.startDate }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="endDate" [matDatepicker]="myDatepicker2" placeholder="Return time">
+          <mat-datepicker-toggle [for]="myDatepicker2"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker2></mat-datepicker>
+          <mat-error *ngIf="searchFormErrors.endDate">
+            {{ searchFormErrors.endDate }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="make" placeholder="Make" type="text">
+          <mat-error *ngIf="searchFormErrors.make">
+            {{ searchFormErrors.make }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="seats" placeholder="Seats" pattern="[0-9]*" type="text">
+          <mat-error *ngIf="searchFormErrors.seats">
+            {{ searchFormErrors.seats }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field class="half-width">
+          <input matInput formControlName="rentalService" placeholder="RentalService" type="text">
+          <mat-error *ngIf="searchFormErrors.rentalService">
+            {{ searchFormErrors.rentalService }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field>
+          <input matInput formControlName="countryCity" placeholder="Location" type="text" [matAutocomplete]="auto">
+          <mat-error *ngIf="searchFormErrors.countryCity">
+            {{ searchFormErrors.countryCity }}
+          </mat-error>
+        </mat-form-field>
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="searchForm.invalid">
+          Submit
+      </button>
+    </form>
+  </div>
+  <div fxFlex>
+    <mat-grid-list cols="3" rowHeight="200px">
+      <mat-grid-tile *ngFor="let car of foundCars">
+        <mat-card id={{car.id}} (click)="inspect($event)" class="pointer">
+          Registration: {{car.registration}} | Make:  {{car.make}} | Seats:  {{car.seats}} | Price: {{car.price}} | Category:  {{car.category}}
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>
+
+<div *ngIf="isList&&userType==='rentalServiceAdmin'" >
+  <app-list-cars-admin></app-list-cars-admin>
+</div>

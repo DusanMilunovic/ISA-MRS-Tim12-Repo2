@@ -1,0 +1,91 @@
+{
+  "name": "rentalService",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      }
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "latitude": {
+      "type": "number",
+      "required": false
+    },
+    "longitude": {
+      "type": "number",
+      "required": false
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "rating": {
+      "type": "number",
+      "default": 0
+    },
+    "ratingCount": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {
+    "branches": {
+      "type": "hasMany",
+      "model": "branch",
+      "foreignKey": ""
+    },
+    "cars": {
+      "type": "hasMany",
+      "model": "car",
+      "foreignKey": ""
+    },
+    "carPrices": {
+      "type": "hasMany",
+      "model": "CarPrice",
+      "foreignKey": ""
+    },
+    "location": {
+      "type": "belongsTo",
+      "model": "location",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "rentalServiceAdmin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

@@ -1,0 +1,95 @@
+{
+  "name": "hotel",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      }
+    },
+    "address": {
+      "type": "string",
+      "required": true
+    },
+    "latitude": {
+      "type": "number",
+      "required": false
+    },
+    "longitude": {
+      "type": "number",
+      "required": false
+    },
+    "description": {
+      "type": "string"
+    },
+    "ratingCount": {
+      "type": "number",
+      "default": 0
+    },
+    "rating": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {
+    "rooms": {
+      "type": "hasMany",
+      "model": "room",
+      "foreignKey": ""
+    },
+    "roomPrices": {
+      "type": "hasMany",
+      "model": "roomPrice",
+      "foreignKey": ""
+    },
+    "hotelSpecialOffers": {
+      "type": "hasMany",
+      "model": "hotelSpecialOffer",
+      "foreignKey": ""
+    },
+    "hotelDiscounts": {
+      "type": "hasMany",
+      "model": "hotelDiscount",
+      "foreignKey": ""
+    },
+    "location": {
+      "type": "belongsTo",
+      "model": "location",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "hotelAdmin",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "admin",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

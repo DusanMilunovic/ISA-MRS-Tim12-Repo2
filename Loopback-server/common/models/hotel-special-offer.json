@@ -1,0 +1,64 @@
+{
+  "name": "hotelSpecialOffer",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "indexes": {
+    "nameHotelIndex": {
+      "keys": {
+        "name": 1,
+        "hotelId": -1
+      },
+      "options": {
+        "unique": true
+      }
+    }
+  },
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "price": {
+      "type": "number",
+      "required": true,
+      "default": 0
+    }
+  },
+  "validations": [],
+  "relations": {
+    "hotel": {
+      "type": "belongsTo",
+      "model": "hotel",
+      "foreignKey": ""
+    },
+    "discountOffers": {
+      "type": "hasMany",
+      "model": "discountOffer",
+      "foreignKey": ""
+    }
+  },
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "accessType": "READ",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "hotelAdmin",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

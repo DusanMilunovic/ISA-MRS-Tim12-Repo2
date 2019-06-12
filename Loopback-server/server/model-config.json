@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "MongoDB"
+  },
+  "AccessToken": {
+    "dataSource": "MongoDB",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "MongoDB",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "MongoDB",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "MongoDB",
+    "public": false
+  },
+  "hotel": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "room": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "rentalService": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "branch": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "car": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "airline": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "flight": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "roomPrice": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "hotelSpecialOffer": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "hotelDiscount": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "CarPrice": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "Email": {
+    "dataSource": "myemailsource"
+  },
+  "myuser": {
+    "dataSource": "MongoDB",
+    "public": true,
+    "options": {
+      "emailVerificationRequired": true
+    }
+  },
+  "carReservation": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "carid": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "roomid": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "roomReservation": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "UserInfo": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "seat": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "seatId": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "seatReservation": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "carSpecialOffer": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "quickFlightReservation": {
+    "dataSource": "postgres",
+    "public": true
+  },
+  "friendship": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "reservationOffer": {
+    "dataSource": "MongoDB",
+    "public": true
+  },
+  "location": {
+    "dataSource": "MongoDB",
+    "public": true
+  }
+}

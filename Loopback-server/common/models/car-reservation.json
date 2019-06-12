@@ -1,0 +1,45 @@
+{
+  "name": "carReservation",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "startDate": {
+      "type": "date",
+      "required": true
+    },
+    "endDate": {
+      "type": "date",
+      "required": true
+    },
+    "price": {
+      "type": "number",
+      "required": true
+    },
+    "carsId": {
+      "type": "string",
+      "required": true
+    },
+    "myuserId": {
+      "type": "string"
+    },
+    "isSpecialOffer": {
+      "type": "boolean",
+      "required": true
+    },
+    "rentalServiceId": {
+      "type": "string",
+      "required": true
+    },
+    "rated": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
